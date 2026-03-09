@@ -3,7 +3,7 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<title>SOŠ Varnsdorf - Studentský web</title>
+<title>SOŠ Varnsdorf - Úkoly</title>
 
 <style>
 
@@ -35,10 +35,6 @@ text-decoration:none;
 font-weight:bold;
 }
 
-nav a:hover{
-color:yellow;
-}
-
 /* SECTIONS */
 section{
 background:white;
@@ -49,58 +45,35 @@ border-radius:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* FORM */
-form{
-max-width:500px;
-margin:auto;
+/* TODO LIST */
+ul{
+list-style:none;
+padding:0;
 }
 
-input, textarea{
-width:100%;
+li{
 padding:10px;
-margin-top:5px;
-margin-bottom:15px;
-border-radius:5px;
-border:1px solid #ccc;
+border-bottom:1px solid #ddd;
+display:flex;
+justify-content:space-between;
+}
+
+.done{
+text-decoration:line-through;
+color:gray;
 }
 
 button{
 background:#00796b;
 color:white;
 border:none;
-padding:10px 20px;
-border-radius:6px;
+padding:5px 10px;
+border-radius:5px;
 cursor:pointer;
 }
 
 button:hover{
 background:#004d40;
-}
-
-/* TODO LIST */
-#taskInput{
-width:70%;
-padding:10px;
-}
-
-#taskList li{
-padding:8px;
-border-bottom:1px solid #ddd;
-display:flex;
-justify-content:space-between;
-}
-
-.deleteBtn{
-background:red;
-padding:5px 10px;
-border:none;
-color:white;
-cursor:pointer;
-border-radius:5px;
-}
-
-.deleteBtn:hover{
-background:darkred;
 }
 
 footer{
@@ -117,79 +90,49 @@ padding:20px;
 
 <header>
 <h1>Střední odborná škola Varnsdorf</h1>
-<p>Studentský demo web</p>
+<p>Seznam školních úkolů</p>
 </header>
 
-<nav>
-<a href="#about">O škole</a>
-<a href="#tasks">Úkoly</a>
-<a href="#formular">Kontakt</a>
-</nav>
-
-<section id="about">
-<h2>O škole</h2>
-<p>
-Tento web je studentský projekt vytvořený pro ukázku HTML, CSS a JavaScriptu.
-</p>
-</section>
-
-<section id="tasks">
-<h2>Seznam úkolů</h2>
-
-<input id="taskInput" type="text" placeholder="Napiš nový úkol">
-<button onclick="addTask()">Přidat</button>
+<section>
+<h2>Automaticky vytvořené úkoly</h2>
 
 <ul id="taskList"></ul>
 
 </section>
 
-<section id="formular">
-<h2>Napiš nám</h2>
-
-<form>
-<label>Jméno</label>
-<input type="text" placeholder="Tvoje jméno">
-
-<label>Email</label>
-<input type="email" placeholder="tvuj@email.cz">
-
-<label>Zpráva</label>
-<textarea rows="5" placeholder="Napiš zprávu"></textarea>
-
-<button type="submit">Odeslat</button>
-</form>
-
-</section>
-
 <footer>
-<p>© 2026 SOŠ Varnsdorf - Demo stránka</p>
+<p>© 2026 Demo stránka</p>
 </footer>
 
 <script>
 
-function addTask(){
-let input=document.getElementById("taskInput");
-let task=input.value;
+const tasks = [
+"Dokončit domácí úkol z matematiky",
+"Připravit prezentaci z IT",
+"Napsat referát z češtiny",
+"Procvičit programování",
+"Přečíst kapitolu z učebnice"
+];
 
-if(task==="") return;
+const list = document.getElementById("taskList");
 
-let li=document.createElement("li");
-li.textContent=task;
+tasks.forEach(task => {
 
-let del=document.createElement("button");
-del.textContent="X";
-del.className="deleteBtn";
+let li = document.createElement("li");
+li.textContent = task;
 
-del.onclick=function(){
-li.remove();
-};
+let btn = document.createElement("button");
+btn.textContent = "Hotovo";
 
-li.appendChild(del);
-
-document.getElementById("taskList").appendChild(li);
-
-input.value="";
+btn.onclick = function(){
+li.classList.toggle("done");
 }
+
+li.appendChild(btn);
+
+list.appendChild(li);
+
+});
 
 </script>
 
